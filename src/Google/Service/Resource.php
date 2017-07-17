@@ -164,7 +164,14 @@ class Google_Service_Resource
         null,
         $postBody
     );
-    $httpRequest->setBaseComponent($this->client->getBasePath());
+        // elhajdi modification get baseurl form service 
+    if ( isset($this->service->rootUrl ) ){
+        $basePath = $this->service->rootUrl ;
+    } else  {
+        $basePath = $this->client->getBasePath() ; 
+    }
+    
+    $httpRequest->setBaseComponent($basePath);
 
     if ($postBody) {
       $contentTypeHeader = array();

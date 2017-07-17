@@ -39,6 +39,7 @@ class Google_IO_Curl extends Google_IO_Abstract
    */
   public function executeRequest(Google_Http_Request $request)
   {
+    
     $curl = curl_init();
 
     if ($request->getPostBody()) {
@@ -53,6 +54,12 @@ class Google_IO_Curl extends Google_IO_Abstract
       }
       curl_setopt($curl, CURLOPT_HTTPHEADER, $curlHeaders);
     }
+
+  /*  if( strpos($request->getUrl(), 'v1/presentations/') !== false ) {
+      header('Content-Type: application/json');
+      echo $request->getPostBody();die;
+      // $request->setBaseComponent('https://slides.googleapis.com/');
+    }*/
 
     curl_setopt($curl, CURLOPT_URL, $request->getUrl());
     
@@ -77,6 +84,8 @@ class Google_IO_Curl extends Google_IO_Abstract
     }
 
     $response = curl_exec($curl);
+
+
     if ($response === false) {
       throw new Google_IO_Exception(curl_error($curl));
     }
